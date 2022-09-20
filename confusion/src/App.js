@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import  {Navbar, NavbarBrand}  from 'reactstrap';
-import './App.css';
+import React, { useState } from 'react';
+import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './components/MenuComponent';
 import { DISHES } from './shared/dishes';
+import logo from './logo.svg';
+import './App.css';
 
-function App() {
-/* sita reikia pakeisti
+const App = () => {
+  const [dishes, setDished] = useState(DISHES);
 
+  // The function below serves as an example on how to update dishes state
+  // const updateDished = (newDishes) => {
+  //   setDished(newDishes);
+  // }
 
-  constructor(props){
-    super(props);
-
-    this.state={
-      dishes:DISHES
-    };
-  }
-
-
-*/
   return (
     <div>
       <Navbar dark color="primary">
@@ -25,12 +20,9 @@ function App() {
           <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
         </div>
       </Navbar>
-      <Menu dishes={this.state.dishes} />   
+      <Menu dishes={dishes} />
     </div>
   );
 }
-/*
-<Menu dishes={this.state.dishes} /> (line 28) irgi nezinau ar yra gerai
-*/
 
 export default App;
