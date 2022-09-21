@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reactstrap';
-
+import Dish from './DishdetailComponent';
 
 /*reikia pakeisti i functional componenta
 */
@@ -99,10 +99,7 @@ class Menu extends Component {
                 <div className="row">
                     {menu}
                 </div>
-                <div className="row">
-                    {this.renderDish(this.state.selectedDish)}
-                    {this.renderComments(this.state.selectedDish)}
-                </div>
+                <Dish name={this.state.selectedDish}/>
             </div>
         );
     }
