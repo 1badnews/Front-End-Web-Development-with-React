@@ -13,6 +13,11 @@ class Menu extends Component {
         };
     }
 
+    componentDidMount()
+    {
+        console.log('componentDidMount veikia')
+    }
+
     onDishSelect(dish)
     {
         this.setState({selectedDish: dish});
