@@ -4,6 +4,7 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reac
 
 
 
+
 class Dish extends Component {
 
     
@@ -36,23 +37,21 @@ class Dish extends Component {
     }
     renderComments(name) {
         if (name != null) {
+            const dishcomments = this.props.name.comments.map((comments) => {
+                return (
+                    <div key={comments.id}>
+                        <p>{comments.comment}</p>
+                        <p>-- {comments.author} , {comments.date}</p>
+                    </div>
+                );
+                
+            });
+            console.log(dishcomments)
             return(
-                
             <div className="col-md-5 col-sm-12 m-1">
-                <h3> Comments </h3>
-                <p>{name.comments[0].comment}</p>
-                <p>-- {name.comments[0].author} , {name.comments[0].date}</p>
-                <p>{name.comments[1].comment}</p>
-                <p>-- {name.comments[1].author} , {name.comments[1].date}</p>
-                <p>{name.comments[2].comment}</p>
-                <p>-- {name.comments[2].author} , {name.comments[2].date}</p>
-                <p>{name.comments[3].comment}</p>
-                <p>-- {name.comments[3].author} , {name.comments[3].date}</p>
-                <p>{name.comments[4].comment}</p>
-                <p>-- {name.comments[4].author} , {name.comments[4].date}</p>
+            <h3> Comments </h3>
+              {dishcomments}
             </div>
-            
-                
             );
         }
         else {
