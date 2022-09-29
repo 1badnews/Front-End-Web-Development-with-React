@@ -15,7 +15,7 @@ class Dish extends Component {
                 
 
                 
-                <div className="col-md-5 col-sm-12 m-1">
+                    <div className="col-12 col-md-5 m-1">
                     <Card>
                         <CardImg width="100%" src={name.image} alt={name.name} />
                         <CardBody>
@@ -23,7 +23,7 @@ class Dish extends Component {
                             <CardText>{name.description}</CardText>
                         </CardBody>
                     </Card>
-                </div>
+                    </div>
                 
             
                 
@@ -41,17 +41,18 @@ class Dish extends Component {
                 return (
                     <div key={comments.id}>
                         <p>{comments.comment}</p>
-                        <p>-- {comments.author} , {comments.date}</p>
+                        <p>-- {comments.author} , {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(comments.date)))}</p>
                     </div>
                 );
                 
             });
-            console.log(dishcomments)
             return(
+                
             <div className="col-md-5 col-sm-12 m-1">
             <h3> Comments </h3>
               {dishcomments}
             </div>
+            
             );
         }
         else {
@@ -66,12 +67,12 @@ class Dish extends Component {
     {
         return (
     
-
+                <div className="container">
                 <div className="row">
                     {this.renderDish(this.props.name)}
                     {this.renderComments(this.props.name)}
                 </div>
-
+                </div>
 
 
     
