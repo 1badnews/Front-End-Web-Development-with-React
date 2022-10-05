@@ -35,7 +35,7 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reac
             )
         }
     }
-    function renderComments({name}) {
+    function RenderComments({name}) {
         if (name != null) {
             const dishcomments = name.comments.map((comments) => {
                 return (
@@ -63,14 +63,14 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reac
     }
 
 
-    const DishDetail = (props) =>
+    const Dish = (props) =>
     {
         return (
     
                 <div className="container">
                 <div className="row">
-                    <RenderDish name={props.dish}/>
-                    <renderComments name={props.dish}/>
+                    <RenderDish name={props.name}/>
+                    <RenderComments name={props.name}/>
                 </div>
                 </div>
 
@@ -81,4 +81,4 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle} from 'reac
 }
 
 
-export default DishDetail;
+export default Dish;
