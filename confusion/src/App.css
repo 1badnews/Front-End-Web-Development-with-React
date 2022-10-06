@@ -1,3 +1,4 @@
+
 .row-header{
     margin:0px auto;
     padding:0px auto;
@@ -33,4 +34,7 @@ address{
 }
 .white {
     color:floralwhite;
+}
+nav ul li {
+    list-style: none;
 }

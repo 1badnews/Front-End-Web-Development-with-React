@@ -5,26 +5,31 @@ import Dish from './DishdetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import DishDetail from './DishdetailComponent';
+import Home from './HomeComponent';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 const Main = () => {
   const [dishes, setDished] = useState(DISHES);
-  const [selectedDish, setselectedDish] = useState(null);
+
 
   // The function below serves as an example on how to update dishes state
   // const updateDished = (newDishes) => {
   //   setDished(newDishes);
   // }
-
-  const updateSelectedDish=(dishId)=>{
-    setselectedDish(dishId)
-    console.log(selectedDish)
-  }
+const HomePage= () => {
+  return(
+    <Home/>
+  )
+}
+ 
   return (
     <div>
       <Header/>
-      <Menu dishes={dishes} 
-        onClick={(dishId) => updateSelectedDish(dishId)}/>
-      <Dish name={dishes.filter((dish) => dish.id === selectedDish )[0]} />
+      <Switch>
+        <Route path="/home" component={HomePage}/>
+        <Route exact path="/menu" component={() => <Menu dishes={dishes} />} />
+        <Redirect to="/home" />
+      </Switch>
       <Footer/>
     </div>
   );
