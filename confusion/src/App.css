@@ -38,3 +38,6 @@ address{
 nav ul li {
     list-style: none;
 }
+.fade{
+    opacity: 1;
+}
