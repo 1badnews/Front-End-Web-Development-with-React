@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
 import Menu from './MenuComponent';
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
-import { LEADERS } from '../shared/leaders';
-import { PROMOTIONS } from '../shared/promotions';
 import Contact from './ContactComponent';
 import Dish from './DishdetailComponent';
 import Header from './HeaderComponent';
@@ -11,25 +7,38 @@ import Footer from './FooterComponent';
 import DishDetail from './DishdetailComponent';
 import Home from './HomeComponent';
 import About from './AboutComponent';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 
-const Main = () => {
-  const [dishes, setDished] = useState(DISHES);
-  const [comments, setComments] = useState(COMMENTS);
-  const [leaders, setLeaders] = useState(LEADERS);
-  const [promotions, setPromotions] = useState(PROMOTIONS);
+const mapStateToProps = state => 
+{
+  return{
+    dishes:state.dishes,
+    comments:state.comments,
+    promotions:state.promotions,
+    leaders:state.leaders
+  }
+}
+
+const Main = (props) => {
+  //const [dishes, setDished] = useState(DISHES);
+  //const [comments, setComments] = useState(COMMENTS);
+  //const [leaders, setLeaders] = useState(LEADERS);
+  //const [promotions, setPromotions] = useState(PROMOTIONS);
 
 
   // The function below serves as an example on how to update dishes state
   // const updateDished = (newDishes) => {
   //   setDished(newDishes);
   // }
+
+
 const HomePage= () => {
   return(
-    <Home dish={dishes.filter((dish) => dish.featured)[0]}
-    promotion={promotions.filter((promo) => promo.featured)[0]}
-    leader={leaders.filter((lead) => lead.featured)[0]}
+    <Home dish={props.dishes.filter((dish) => dish.featured)[0]}
+    promotion={props.promotions.filter((promo) => promo.featured)[0]}
+    leader={props.leaders.filter((lead) => lead.featured)[0]}
     />
   )
 }
@@ -38,8 +47,8 @@ const DishWithId = ({match}) =>
 {
   console.log(match.params)
   return(
-    <Dish dish={dishes.filter((dish) => dish.id ===parseInt(match.params.dishId, 10))[0]}
-    comments={comments.filter((comment) => comment.dishId ===parseInt(match.params.dishId, 10))}
+    <Dish dish={props.dishes.filter((dish) => dish.id ===parseInt(match.params.dishId, 10))[0]}
+    comments={props.comments.filter((comment) => comment.dishId ===parseInt(match.params.dishId, 10))}
     
     />
   );
@@ -50,10 +59,10 @@ const DishWithId = ({match}) =>
       <Header/>
       <Switch>
         <Route path="/home" component={HomePage}/>
-        <Route exact path="/menu" component={() => <Menu dishes={dishes} />} />
+        <Route exact path="/menu" component={() => <Menu dishes={props.dishes} />} />
         <Route path="/menu/:dishId" component={DishWithId} />
         <Route exact path="/contactus" component={Contact}/>
-        <Route exact path="/aboutus" component={() => <About leaders={leaders}/>}/>
+        <Route exact path="/aboutus" component={() => <About leaders={props.leaders}/>}/>
         <Redirect to="/home" />
       </Switch>
       <Footer/>
@@ -61,4 +70,4 @@ const DishWithId = ({match}) =>
   );
 }
 
-export default Main;
+export default withRouter(connect(mapStateToProps)(Main));
