@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Breadcrumb,BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col, Row} from 'reactstrap';
-import {Control, LocalForm, Errors} from 'react-redux-form';
+import {Breadcrumb,BreadcrumbItem, Button, FormGroup, Label, Input, Col, Row} from 'reactstrap';
+import {Control, Form, Errors, actions} from 'react-redux-form';
 import {Link} from 'react-router-dom'
 
 
@@ -30,6 +30,7 @@ function Contact(props) {
     {
       console.log(values);
       alert("Submitted!")
+      props.resetFeedbackForm()
     }
 
 
@@ -78,7 +79,7 @@ function Contact(props) {
                     <h3>Send us your Feedback!</h3>
                 </div>
                 <div className="col-12 col-md-9">
-                    <LocalForm onSubmit={(values) => handleSubmit(values)}>
+                    <Form model="feedback" onSubmit={(values) => handleSubmit(values)}>
                         <Row className="form-group">
                             <Label htmlFor="firstname" md={2}>First Name</Label>
                             <Col md={10}>
@@ -170,7 +171,7 @@ function Contact(props) {
                                 </Button>
                             </Col>
                         </Row>
-                    </LocalForm>
+                    </Form>
                 </div>
             </div>
         </div>
