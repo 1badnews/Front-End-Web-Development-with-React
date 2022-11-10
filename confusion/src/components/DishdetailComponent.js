@@ -4,11 +4,12 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb
 Form, FormGroup, Label, Col, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors, Field} from 'react-redux-form';
+import  {addComment} from '../redux/ActionCreator';
 
 
 
 
-    function CommentForm()
+    function CommentForm(props)
     {
         
     const [show, setShow] = useState(false);
@@ -21,9 +22,11 @@ import {Control, LocalForm, Errors, Field} from 'react-redux-form';
     
     function handleSubmit(values)
     {
-    console.log(values);
+    console.log(props.dishId, values.rating, values.name, values.desc);
     alert('Thank you for submitting!')
+    props.addComment(props.dishId, values.rating, values.name, values.desc)
     setShow(false);
+    console.log(props.comments)
     }
     
         return(
@@ -60,7 +63,7 @@ import {Control, LocalForm, Errors, Field} from 'react-redux-form';
                             </FormGroup>
                             <FormGroup>
                                 <Label>Comment</Label>
-                                <Control.textarea rows="6" className="w-100 " model=".rating" name="rating" classname="form-control"></Control.textarea>
+                                <Control.textarea rows="6" className="w-100 " model=".desc" name="desc" classname="form-control"></Control.textarea>
                             </FormGroup>
                             <Button type="submit" value="submit" color="primary">Submit</Button>
                         </LocalForm>
@@ -99,7 +102,8 @@ import {Control, LocalForm, Errors, Field} from 'react-redux-form';
             )
         }
     }
-    function RenderComments({name}) {
+    function RenderComments({name, addComment, dishId}) {
+        
         if (name != null) {
             const dishcomments = name.map((comment) => {
                 return (
@@ -107,15 +111,15 @@ import {Control, LocalForm, Errors, Field} from 'react-redux-form';
                         <p>{comment.comment}</p>
                         <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
                     </div>
+                   
                 );
-                
             });
             return(
                 
             <div className="col-md-5 col-sm-12 m-1">
             <h3> Comments </h3>
               {dishcomments}
-              <CommentForm/>
+              <CommentForm dishId={dishId} addComment={addComment}/>
             </div>
             
 
@@ -148,7 +152,9 @@ import {Control, LocalForm, Errors, Field} from 'react-redux-form';
                     </div>
                     <div className="row">
                         <RenderDish name={props.dish}/>
-                        <RenderComments name={props.comments}/>
+                        <RenderComments name={props.comments} 
+                        addComment = {props.addComment}
+                        dishId={props.dish.id}/>
                         
                         
                     </div>
@@ -162,3 +168,6 @@ import {Control, LocalForm, Errors, Field} from 'react-redux-form';
 
 
 export default Dish;
+
+
+// toks jausmas nesirefreshina listas po addinimo blet
