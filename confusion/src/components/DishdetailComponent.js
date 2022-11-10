@@ -5,7 +5,7 @@ Form, FormGroup, Label, Col, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors, Field} from 'react-redux-form';
 import  {addComment} from '../redux/ActionCreator';
-
+import {Loading} from './LoadingComponent';
 
 
 
@@ -136,8 +136,26 @@ import  {addComment} from '../redux/ActionCreator';
 
     const Dish = (props) =>
     {
-        
-        return (
+        if (props.isLoading) {
+            return(
+                <div className='container'>
+                    <div className='row'>
+                        <Loading/>
+                    </div>
+                </div>
+            );
+        }
+        else if (props.errMess)
+        {
+            return(
+                <div className='container'>
+                    <div className='row'>
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else return (
     
                 <div className="container">
                         <div className="row">
