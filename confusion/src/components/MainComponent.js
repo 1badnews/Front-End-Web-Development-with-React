@@ -9,7 +9,7 @@ import Home from './HomeComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import {addComment, fetchDishes} from '../redux/ActionCreator'
+import {addComment, fetchComments, fetchDishes, fetchPromos} from '../redux/ActionCreator'
 import {actions} from 'react-redux-form';
 
 
@@ -27,6 +27,8 @@ const mapDispatchToProps = (dispatch) => ({
   
   addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
   fetchDishes: () => {dispatch(fetchDishes())},
+  fetchPromos: () => {dispatch(fetchPromos())},
+  fetchComments: () => {dispatch(fetchComments())},
   resetFeedbackForm: () => {dispatch(actions.reset('feedback'))}
 });
 
@@ -43,6 +45,8 @@ const Main = (props) => {
   // }
   useEffect(() => {
     props.fetchDishes();
+    props.fetchComments();
+    props.fetchPromos();
   },[]);
 
 const HomePage= () => {
@@ -50,7 +54,9 @@ const HomePage= () => {
     <Home dish={props.dishes.dishes.filter((dish) => dish.featured)[0]}
     dishesLoading={props.dishes.isLoading}
     dishesErrMess={props.dishes.errMess}
-    promotion={props.promotions.filter((promo) => promo.featured)[0]}
+    promotion={props.promotions.promotions.filter((promo) => promo.featured)[0]}
+    promosLoading={props.promotions.isLoading}
+    promosErrMess={props.promotions.errMess}
     leader={props.leaders.filter((lead) => lead.featured)[0]}
     />
   )
@@ -62,8 +68,9 @@ const DishWithId = ({match}) =>
   return(
     <Dish dish={props.dishes.dishes.filter((dish) => dish.id ===parseInt(match.params.dishId, 10))[0]}
     isLoading={props.dishes.isLoading}
-    ErrMess={props.dishes.errMess}
-    comments={props.comments.filter((comment) => comment.dishId ===parseInt(match.params.dishId, 10))}
+    errMess={props.dishes.errMess}
+    comments={props.comments.comments.filter((comment) => comment.dishId ===parseInt(match.params.dishId, 10))}
+    commentsErrMess={props.comments.errMess}
     addComment={props.addComment}
     
     />

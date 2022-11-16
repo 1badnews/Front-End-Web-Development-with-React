@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors, Field} from 'react-redux-form';
 import  {addComment} from '../redux/ActionCreator';
 import {Loading} from './LoadingComponent';
+import {baseUrl} from '../shared/baseUrl';
 
 
 
@@ -84,7 +85,7 @@ import {Loading} from './LoadingComponent';
                 
                     <div className="col-12 col-md-5 m-1">
                     <Card>
-                        <CardImg width="100%" src={name.image} alt={name.name} />
+                        <CardImg width="100%" src={baseUrl + name.image} alt={name.name} />
                         <CardBody>
                             <CardTitle>{name.name}</CardTitle>
                             <CardText>{name.description}</CardText>
