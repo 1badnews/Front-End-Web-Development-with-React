@@ -4,7 +4,7 @@ import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb
 Form, FormGroup, Label, Col, Row} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors, Field} from 'react-redux-form';
-import  {addComment} from '../redux/ActionCreator';
+import  {postComment} from '../redux/ActionCreator';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from '../shared/baseUrl';
 
@@ -25,7 +25,7 @@ import {baseUrl} from '../shared/baseUrl';
     {
     console.log(props.dishId, values.rating, values.name, values.desc);
     alert('Thank you for submitting!')
-    props.addComment(props.dishId, values.rating, values.name, values.desc)
+    props.postComment(props.dishId, values.rating, values.name, values.desc)
     setShow(false);
     console.log(props.comments)
     }
@@ -103,7 +103,7 @@ import {baseUrl} from '../shared/baseUrl';
             )
         }
     }
-    function RenderComments({name, addComment, dishId}) {
+    function RenderComments({name, postComment, dishId}) {
         
         if (name != null) {
             const dishcomments = name.map((comment) => {
@@ -120,7 +120,7 @@ import {baseUrl} from '../shared/baseUrl';
             <div className="col-md-5 col-sm-12 m-1">
             <h3> Comments </h3>
               {dishcomments}
-              <CommentForm dishId={dishId} addComment={addComment}/>
+              <CommentForm dishId={dishId} postComment={postComment}/>
             </div>
             
 
@@ -172,7 +172,7 @@ import {baseUrl} from '../shared/baseUrl';
                     <div className="row">
                         <RenderDish name={props.dish}/>
                         <RenderComments name={props.comments} 
-                        addComment = {props.addComment}
+                        postComment = {props.postComment}
                         dishId={props.dish.id}/>
                         
                         
@@ -189,4 +189,3 @@ import {baseUrl} from '../shared/baseUrl';
 export default Dish;
 
 
-// toks jausmas nesirefreshina listas po addinimo blet
